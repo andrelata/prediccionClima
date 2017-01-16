@@ -22,5 +22,13 @@ public class Periodo {
     }
 
 
+    public void addCantidad(int value) {
+        cantidad += value;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.clima.equalsIgnoreCase(((Periodo)obj).getPeriodo());
+    }
 }
 

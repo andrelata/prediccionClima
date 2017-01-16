@@ -83,32 +83,61 @@ public class PrediccionController {
     }
 
     /**
-     * Ej: http://localhost:8080/periodos
+     * Ej: http://localhost:8080/periodos?años=1 o http://localhost:8080/periodos
      * @param anio
      * @return lista de los periodos de clima y la cantidad de dias que se repiten en n años.
      * Por default el calculo se hace por 10 años.
      */
     @RequestMapping("/periodos")
     public List<Periodo> periodos(@RequestParam(value="años", defaultValue=años) String anio){
-        //TODO completar el metodo para que agarre los dias q corresponde
-        List<Prediccion> dias = (List<Prediccion>) repository.findAll();
-        return contarPeriodos(dias);
+        List<Prediccion> dias = (List<Prediccion>) repository.findAll(); //un ciclo
+        if(dias.size() > 0){
+            try{
+                int d = Integer.valueOf(anio).intValue() * diasXanio;
+                int cantCiclos = getCiclos(d);
+                int diasExtra = getDiasExtra(d, cantCiclos);
+                Map<String, Long> map = contarPeriodos(dias);
+                List<Periodo> periodos = mapearPeriodos(map, cantCiclos);
+                if(diasExtra > 0){
+                    dias = repository.findByDiaLessThan(diasExtra);
+                    map = contarPeriodos(dias);
+                    periodos = mapearPeriodos(map, cantCiclos, periodos);
+                }
+                return periodos;
+            }catch (Exception e){
+                throw new RuntimeException("El parametro que estas pasando como año no es valido.");
+            }
+        }
+        throw new RuntimeException("Inicialice la bd");
+
     }
 
     //TODO podria agregar un metodo que devuelva el pico máximo de lluvia en n años, default 10 años
 
-    private List<Periodo> mapearPeriodos(Map<String, Long> periodos) {
+    private List<Periodo> mapearPeriodos(Map<String, Long> periodos, int ciclos) {
         List<Periodo> resp = new ArrayList<Periodo>();
-        for(Map.Entry<String, Long> periodo: periodos.entrySet()){
-            resp.add(new Periodo(periodo.getKey(), periodo.getValue().intValue()));
-        }
+        mapearPeriodos(periodos, ciclos, resp);
         return resp;
     }
 
-    private List<Periodo> contarPeriodos(List<Prediccion> periodos){
+    private List<Periodo> mapearPeriodos(Map<String, Long> map, int ciclos, List<Periodo> periodos ) {
+        for(Map.Entry<String, Long> periodo: map.entrySet()){
+            //TODO mejorar este codigo
+            Periodo p = new Periodo(periodo.getKey(), periodo.getValue().intValue());
+            if(periodos.contains(p)){
+                int i = periodos.indexOf(p);
+                periodos.get(i).addCantidad(p.getCantidad());
+            }else{
+                periodos.add(new Periodo(periodo.getKey(), periodo.getValue().intValue() * ciclos));
+            }
+        }
+        return periodos;
+    }
+
+    private Map<String, Long> contarPeriodos(List<Prediccion> periodos){
         Map<String, Long> result =
                 periodos.stream().collect(Collectors.groupingBy(Prediccion::getClima, Collectors.counting()));
-        return mapearPeriodos(result);
+        return result;
     }
 
     private int getCiclos(int dias){
