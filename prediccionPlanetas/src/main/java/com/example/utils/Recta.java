@@ -5,17 +5,22 @@ package com.example.utils;
  */
 public class Recta {
 
-    //y = y1 + ((y2 - y1)/(x2 - x1))*(x - x1)
-    //y-y1 = (y2-y1)/(x2-x1) * (x-x1)
+    //y = ax + b
     private double a;
     private double b;
 
     public Recta(Punto p1, Punto p2) {
-        //TODO crear la recta que pasa por esos 2 puntos
+        //a = (y2 - y1) / (x2 - x1)
+        a = (p2.getY() - p1.getY())/(p2.getX() - p1.getX());
+        //b = y1 - a * x1
+        b = p1.getY() - a * p1.getX();
     }
 
     public boolean include(Punto p){
-        //TODO se fija si el punto esta incluido en la recta
+        double y = a * p.getX() + b;
+        if( y == p.getY()){
+            return true;
+        }
         return false;
     }
 
