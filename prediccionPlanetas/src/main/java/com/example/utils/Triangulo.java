@@ -5,9 +5,9 @@ package com.example.utils;
  */
 public class Triangulo {
 
-    private double lado1;
-    private double lado2;
-    private double lado3;
+    private double d12;
+    private double d23;
+    private double d13;
 
     //Los vertices del triangulo
     private Punto v1;
@@ -19,16 +19,14 @@ public class Triangulo {
         this.v2 = p2;
         this.v3 = p3;
 
-        armarTriangulo();
+        d12 = calcularDistancia(v1,v2);
+        d23 = calcularDistancia(v2,v3);
+        d13 = calcularDistancia(v1,v3);
     }
 
-    private void armarTriangulo() {
-        //TODO calcular los 3 lados del triangulo
-    }
-
-    //perimetro de un triangulo = lado1 + lado2 + lado3
+    //perimetro de un triangulo suma de la distancia
     public double getPerimetro() {
-        return lado1 + lado2 + lado3;
+        return d12 + d23 + d13;
     }
 
     //Si un punto esta dentro del triangulo
@@ -44,5 +42,10 @@ public class Triangulo {
 
     private double sign(Punto p1, Punto p2, Punto p3) {
         return (p1.getX() - p3.getX()) * (p2.getY() - p3.getY()) - (p2.getX() - p3.getX()) * (p1.getY() - p3.getY());
+    }
+
+    //d = sqrt((x2-x19)^2+(y2-y1)^2)
+    private double calcularDistancia(Punto p1, Punto p2){
+        return Math.sqrt(Math.pow((p2.getX() - p1.getX()),2) + Math.pow((p2.getY() - p1.getY()),2));
     }
 }

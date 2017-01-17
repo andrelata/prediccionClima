@@ -3,6 +3,9 @@ package com.example;
 import com.example.utils.Punto;
 import com.example.utils.Triangulo;
 import org.junit.Test;
+
+import java.text.DecimalFormat;
+
 import static org.junit.Assert.*;
 
 /**
@@ -26,6 +29,16 @@ public class TrianguloTest {
 
         p = new Punto(1,0);
         assertTrue(t.include(p));
+    }
+
+    @Test
+    public void testPerimetro() throws Exception {
+        Punto v1 = new Punto(-2, 5);
+        Punto v2 = new Punto(4, 3);
+        Punto v3 = new Punto(7, -2);
+
+        Triangulo t = new Triangulo(v1, v2, v3);
+        assertEquals("23.56", new DecimalFormat("#0.00").format(t.getPerimetro()));
     }
 
 }
