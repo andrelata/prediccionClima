@@ -1,23 +1,27 @@
-# prediccionClima
+# prediccion Clima
 
-Algunos detalles del problema:
+## Algunos detalles del problema:
 - Ferengi - 360 dias en dar la vuelta
 - Vulcano - 72 dias en dar la vuelta
 - Betasoide - 120 dias en dar la vuelta
 - Un ciclo dura 360 dias, a partir del dia 361 todo se repite
 
-Consideraciones:
-- los años tienen 365 dias
+## Consideraciones:
+- Los años tienen 365 dias
 - Si la alinacion de planetas no cumple ninguno de los periodos definidos, el clima se considera indefinido.
 
-Correr la aplicacion:
+## Correr la aplicacion:
 
+```sh
 ./mvnw spring-boot:run
+```
 o
+```sh
 ./mvnw clean package
 java -jar target/prediccionPlanetas-0.0.1-SNAPSHOT.jar
+```
 
-Ejemplos de uso de la API
+## Ejemplos de uso de la API
 
 1. La condición climática del día consultado.
 http://localhost:8080/clima?dia=0
@@ -44,7 +48,7 @@ http://localhost:8080/picoLluvia?años=1
 http://localhost:8080/picoLluvia
 [{"dia":203,"perimetro":6320.739227965827},{"dia":2030,"perimetro":6320.739227965827},{"dia":1827,"perimetro":6320.739227965827},{"dia":1624,"perimetro":6320.739227965827},{"dia":1421,"perimetro":6320.739227965827},{"dia":1218,"perimetro":6320.739227965827},{"dia":1015,"perimetro":6320.739227965827},{"dia":812,"perimetro":6320.739227965827},{"dia":609,"perimetro":6320.739227965827},{"dia":406,"perimetro":6320.739227965827}]
 
-Links utilizados
+## Links utilizados
 	https://spring.io/guides/gs/rest-service/
 	http://docs.spring.io/spring-data/jpa/docs/1.4.1.RELEASE/reference/html/jpa.repositories.html
 	http://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.limit-query-result
