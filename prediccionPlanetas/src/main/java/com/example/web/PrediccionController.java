@@ -45,14 +45,13 @@ public class PrediccionController {
         }catch (Exception e){
             throw new RuntimeException("El parametro que estas pasando como dia no es valido.");
         }
-
     }
 
     /**
      * Ej: http://localhost:8080/periodo?clima=lluvia&&años=1 o http://localhost:8080/periodo?clima=Optimo
      * @param clima
      * @param anio
-     * @return la cantidad de dias dentro de los años que el clima va ser de un tipo.
+     * @return la cantidad de dias de cierto clima dentro de los años.
      * tipo de clima: lluvia, sequia, optimo
      * por default el calculo se hace por 10 años.
      */
@@ -79,8 +78,6 @@ public class PrediccionController {
         }catch (Exception e){
             throw new RuntimeException("El parametro que estas pasando como año no es valido.");
         }
-
-
     }
 
     /**
@@ -114,6 +111,12 @@ public class PrediccionController {
     }
 
     //TODO devuelve en base a 360 dias, tendria q ajustarse segun la cantidad de años
+
+    /**
+     * http://localhost:8080/picoLluvia
+     * @param anio
+     * @return lista de los dias con pico de lluvia dentro de n años. Por default 10 años
+     */
     @RequestMapping("/picoLluvia")
     public List<PicoLluvia> picoLluvia(@RequestParam(value="años", defaultValue=años) String anio){
         Prediccion prediccion = repository.findFirstByOrderByPerimetroDesc();
