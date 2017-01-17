@@ -107,10 +107,7 @@ public class PrediccionController {
             }
         }
         throw new RuntimeException("Inicialice la bd");
-
     }
-
-    //TODO devuelve en base a 360 dias, tendria q ajustarse segun la cantidad de años
 
     /**
      * http://localhost:8080/picoLluvia
@@ -122,10 +119,22 @@ public class PrediccionController {
         Prediccion prediccion = repository.findFirstByOrderByPerimetroDesc();
         List<Prediccion> predicciones = repository.findByPerimetro(prediccion.getPerimetro());
         List<PicoLluvia> picos = new ArrayList<>();
-        for(Prediccion p: predicciones){
-            picos.add(new PicoLluvia(p.getDia(), p.getPerimetro()));
+        try{
+            int d = Integer.valueOf(anio).intValue() * diasXanio;
+            int cantCiclos = getCiclos(d);
+            for(Prediccion p: predicciones){
+                picos.add(new PicoLluvia(p.getDia(), p.getPerimetro()));
+                while(cantCiclos > 1){
+                    picos.add(new PicoLluvia(p.getDia() * cantCiclos, p.getPerimetro()));
+                    cantCiclos--;
+                }
+                cantCiclos = getCiclos(d);
+            }
+            return picos;
+        }catch (Exception e){
+            //TODO podria armar una RuntimeException que sea año invalido
+            throw new RuntimeException("El parametro que estas pasando como año no es valido.");
         }
-        return picos;
     }
 
     private List<Periodo> mapearPeriodos(Map<String, Long> periodos, int ciclos) {
