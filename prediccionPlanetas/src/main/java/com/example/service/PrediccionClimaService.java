@@ -42,8 +42,8 @@ public class PrediccionClimaService {
 
     private Prediccion getClima(int dia){
         Punto p1 = ferengi.getPosicion(dia);
-        Punto p2 = ferengi.getPosicion(dia);
-        Punto p3 = ferengi.getPosicion(dia);
+        Punto p2 = betasoide.getPosicion(dia);
+        Punto p3 = vulcano.getPosicion(dia);
 
         Recta recta = new Recta(p1, p2);
         if(recta.include(p3)){
@@ -54,12 +54,14 @@ public class PrediccionClimaService {
             }
             return new Prediccion(dia, TipoPeriodo.OPTIMO.getDescripcion(), 0);
         }
-        //TODO me fijo si el sol esta dentro del triangulo, para esto analizo los puntos y
-        //TODO la distribucion de los mismos
-        //return new Prediccion(dia, TipoPeriodo.LLUVIA.getDescripcion(), perimetro);
 
-        //TODO aca va indefinido, lo deje asi por ahora para las pruebas
-        return new Prediccion(dia, TipoPeriodo.LLUVIA.getDescripcion(), 0); //Si el triangulo no incluye al sol y no es un recta
+        Triangulo triangulo = new Triangulo(p1, p2, p3);
+        if(triangulo.include(sol)){
+            //si el sol esta dentro del triangulo
+            return new Prediccion(dia, TipoPeriodo.LLUVIA.getDescripcion(), triangulo.getPerimetro());
+        }
+
+        return new Prediccion(dia, TipoPeriodo.INDEFINIDO.getDescripcion(), 0); //Si el triangulo no incluye al sol y no es un recta
     }
 
 

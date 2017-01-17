@@ -14,9 +14,9 @@ public class Prediccion {
 
     private int dia;
     private String clima;
-    private int perimetro;
+    private double perimetro;
 
-    public Prediccion(int dia, String clima, int perimetro) {
+    public Prediccion(int dia, String clima, double perimetro) {
         this.dia = dia;
         this.clima = clima;
         this.perimetro = perimetro;
@@ -35,5 +35,9 @@ public class Prediccion {
 
     public void setDia(int dia) {
         this.dia = dia;
+    }
+
+    public double getPerimetro() {
+        return perimetro;
     }
 }

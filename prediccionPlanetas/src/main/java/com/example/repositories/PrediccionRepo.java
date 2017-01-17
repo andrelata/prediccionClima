@@ -36,5 +36,18 @@ public interface PrediccionRepo extends PagingAndSortingRepository<Prediccion,Lo
      */
     public List<Prediccion> findByDiaLessThanAndClima(int dia, String clima);
 
+
+    /**
+     *
+     * @return devuelve la prediccion con mayor perimetro
+     */
+    public Prediccion findFirstByOrderByPerimetroDesc();
+
+    /**
+     *
+     * @param perimetro
+     * @return devuelve la lista de predicciones con cierto perimetro
+     */
+    public List<Prediccion> findByPerimetro(double perimetro);
 }
 

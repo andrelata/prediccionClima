@@ -1,6 +1,7 @@
 package com.example.web;
 
 import com.example.model.Periodo;
+import com.example.model.PicoLluvia;
 import com.example.model.Prediccion;
 import com.example.repositories.PrediccionRepo;
 import com.example.utils.TipoPeriodo;
@@ -112,7 +113,17 @@ public class PrediccionController {
 
     }
 
-    //TODO podria agregar un metodo que devuelva el pico máximo de lluvia en n años, default 10 años
+    //TODO devuelve en base a 360 dias, tendria q ajustarse segun la cantidad de años
+    @RequestMapping("/picoLluvia")
+    public List<PicoLluvia> picoLluvia(@RequestParam(value="años", defaultValue=años) String anio){
+        Prediccion prediccion = repository.findFirstByOrderByPerimetroDesc();
+        List<Prediccion> predicciones = repository.findByPerimetro(prediccion.getPerimetro());
+        List<PicoLluvia> picos = new ArrayList<>();
+        for(Prediccion p: predicciones){
+            picos.add(new PicoLluvia(p.getDia(), p.getPerimetro()));
+        }
+        return picos;
+    }
 
     private List<Periodo> mapearPeriodos(Map<String, Long> periodos, int ciclos) {
         List<Periodo> resp = new ArrayList<Periodo>();
