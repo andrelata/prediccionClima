@@ -37,10 +37,11 @@ public class PrediccionClimaServiceTest {
         p = service.getClima(0);
         assertEquals(TipoPeriodo.SEQUIA.getDescripcion(), p.getClima());
 
-      //  p = service.getClima(45);
-      //  assertEquals(TipoPeriodo.OPTIMO.getDescripcion(), p.getClima());
+        p = service.getClima(70);
+        assertEquals(TipoPeriodo.LLUVIA.getDescripcion(), p.getClima());
 
-
+        p = service.getClima(60);
+        assertEquals(TipoPeriodo.INDEFINIDO.getDescripcion(), p.getClima());
     }
 }
 
