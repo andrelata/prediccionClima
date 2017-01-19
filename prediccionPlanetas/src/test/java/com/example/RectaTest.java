@@ -24,5 +24,29 @@ public class RectaTest {
         p = new Punto(1,2);
         assertTrue(linea.include(p));
 
+        //recta vertical
+        p1 = new Punto(0, 2);
+        p2 = new Punto(0, 6);
+
+        linea = new Recta(p1, p2);
+
+        p = new Punto(0,0);
+        assertTrue(linea.include(p));
+
+        p = new Punto(1,1);
+        assertFalse(linea.include(p));
+
+        //recta horizontal
+        p1 = new Punto(-1, 4);
+        p2 = new Punto(3, 4);
+
+        linea = new Recta(p1, p2);
+
+        p = new Punto(2,4);
+        assertTrue(linea.include(p));
+
+        p = new Punto(-1,5);
+        assertFalse(linea.include(p));
+
     }
 }
