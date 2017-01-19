@@ -14,7 +14,7 @@ public interface PrediccionRepo extends PagingAndSortingRepository<Prediccion,Lo
      * @param dia
      * @return Devuelve la prediccion de ese dia
      */
-    public List<Prediccion> findByDia(int dia);
+    public Prediccion findByDia(int dia);
 
     /**
      * @param clima

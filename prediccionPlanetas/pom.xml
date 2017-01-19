@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>prediccionPlanetas</name>
-	<description>Examen ingreso mercado libre</description>
+	<description>Ejercicio ingreso</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

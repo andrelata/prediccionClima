@@ -19,14 +19,15 @@ public class Planeta {
         this.radio = radio;
     }
 
-    private float getAngulo(int dia){
-        return (sentido * dia * velAngular) % 360;
+    private double getAngulo(int dia){
+        double deg = (sentido * dia * velAngular) % 360;
+        return Math.toRadians(deg);
     }
 
     public Punto getPosicion(int dia){
+        //Math.cos espera un nro en rad no en deg
         double x = radio * Math.cos(getAngulo(dia));
         double y = radio * Math.sin(getAngulo(dia));
         return new Punto(x,y);
     }
-
 }

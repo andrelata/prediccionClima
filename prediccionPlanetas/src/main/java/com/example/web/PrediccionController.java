@@ -39,7 +39,7 @@ public class PrediccionController {
     public Prediccion clima(@RequestParam(value="dia") String dia) {
         try{
             int d = Integer.valueOf(dia).intValue();
-            Prediccion p = repository.findByDia(d % ciclo).get(0);
+            Prediccion p = repository.findByDia(d % ciclo);
             p.setDia(d);
             return p;
         }catch (Exception e){
