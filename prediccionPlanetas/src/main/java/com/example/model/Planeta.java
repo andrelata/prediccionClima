@@ -26,8 +26,8 @@ public class Planeta {
 
     public Punto getPosicion(int dia){
         //Math.cos espera un nro en rad no en deg
-        double x = radio * Math.cos(getAngulo(dia));
-        double y = radio * Math.sin(getAngulo(dia));
+        double x = radio * Math.sin(getAngulo(dia));
+        double y = radio * Math.cos(getAngulo(dia));
         return new Punto(x,y);
     }
 }

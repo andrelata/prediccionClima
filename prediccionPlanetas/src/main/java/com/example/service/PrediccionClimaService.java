@@ -40,7 +40,7 @@ public class PrediccionClimaService {
         }
     }
 
-    private Prediccion getClima(int dia){
+    public Prediccion getClima(int dia){
         Punto p1 = ferengi.getPosicion(dia);
         Punto p2 = betasoide.getPosicion(dia);
         Punto p3 = vulcano.getPosicion(dia);
